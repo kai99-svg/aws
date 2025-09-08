@@ -20,13 +20,13 @@ jobs:
         uses: hashicorp/setup-terraform@v3
 
       - name: Terraform init
-        run: terraform init
+        run: cd project2 && terraform init
 
       - name: Terraform validate
-        run: terraform validate
+        run: cd project2 && terraform validate
 
       - name: Terraform plan
-        run: terraform plan -out=tfplan
+        run: cd project2 && terraform plan -out=tfplan
 
       - name: Terraform apply
-        run: terraform apply --auto-approve tfplan
+        run: cd project2 && terraform apply --auto-approve tfplan
