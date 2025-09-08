@@ -20,7 +20,16 @@ variable "subnet_prefix" {
   description = "List of CIDR blocks for subnets"
   type        = list(string)
 }
-
+# S3 bucket for the tfstate.
+terraform {
+  backend "s3" {
+    bucket         = "your-terraform-state-bucket"  # your bucket name
+    key            = "path/to/terraform.tfstate"    # path inside bucket for the state file
+    region         = "us-east-1"
+    dynamodb_table = "your-lock-table"              # your DynamoDB table for locking
+    encrypt        = true
+  }
+}
 ########################################
 # NETWORKING - VPC, Subnets, IGW, Routing
 ########################################
