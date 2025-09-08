@@ -13,20 +13,20 @@ jobs:
     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
     steps:
-    - name: Checkout code
-      uses: action/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Setup terraform
-      uses: hashicorp/setup-terraform@v3
+      - name: Setup terraform
+        uses: hashicorp/setup-terraform@v3
 
-    - name: Terraform init
-      run: terraform init
+      - name: Terraform init
+        run: terraform init
 
-    - name: Terraform validate
-      run: terraform validate
+      - name: Terraform validate
+        run: terraform validate
 
-    - name: Terraform plan
-      run: terraform plan -out=tfplan
+      - name: Terraform plan
+        run: terraform plan -out=tfplan
 
-    - name: Terraform apply
-      run: terraform apply --auto-approve tfpan
+      - name: Terraform apply
+        run: terraform apply --auto-approve tfplan
