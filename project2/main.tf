@@ -161,6 +161,18 @@ resource "aws_security_group_rule" "allow_alb_outbound" {
   protocol          = "-1"
   cidr_blocks       = ["0.0.0.0/0"]
 }
+########################################
+# CREATE KEY
+########################################
+resource "tls_private_key" "example" {
+  algorithm = "RSA"
+  rsa_bits  = 2048
+}
+
+resource "aws_key_pair" "generated_key" {
+  key_name   = "key"
+  public_key = tls_private_key.example.public_key_openssh
+}
 
 ########################################
 # EC2 INSTANCES AND NETWORK INTERFACES
@@ -182,7 +194,7 @@ resource "aws_instance" "instance1" {
   ami           = "ami-0360c520857e3138f"
   instance_type = "t2.micro"
   availability_zone = "us-east-1a"
-  key_name = "key"
+  key_name = aws_key_pair.generated_key.key_name
 
   primary_network_interface {
     network_interface_id = aws_network_interface.web_server.id
@@ -207,7 +219,7 @@ resource "aws_instance" "instance2" {
   ami           = "ami-0360c520857e3138f"
   instance_type = "t2.micro"
   availability_zone = "us-east-1b"
-  key_name = "key"
+  key_name = aws_key_pair.generated_key.key_name
 
   primary_network_interface {
     network_interface_id = aws_network_interface.web_server2.id
