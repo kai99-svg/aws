@@ -12,12 +12,12 @@ jobs:
       AWS_DEFAULT_REGION: us-east-1  # Change as needed
 
     steps:
-      - name: Install AWS CLI
+      - name: Install or update AWS CLI
         run: |
           curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
           unzip awscliv2.zip
-          sudo ./aws/install
-
+          sudo ./aws/install --update
+          
       - name: Test access to S3 bucket
         run: aws s3 ls s3://kaikai-bucket-2025
 
