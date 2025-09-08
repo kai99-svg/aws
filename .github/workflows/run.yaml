@@ -9,6 +9,8 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
+    env:
+      TF_VAR_subnet_prefix: '["10.0.100.0/24", "10.0.200.0/24"]'
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}         # Load AWS Access Key from GitHub Secrets
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
